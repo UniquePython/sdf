@@ -4,7 +4,9 @@
 
 #define WIDTH 900
 #define HEIGHT 600
-#define SCALE 150
+#define SCALE 100
+#define INTERVAL 20
+#define THRESHOLD 2.5
 
 // --- SDF ---
 float sdf_circle(float x, float y, float cx, float cy, float r)
@@ -25,6 +27,9 @@ float sigmoid(float t)
 Color distance_to_color(float d)
 {
 	unsigned char v = (unsigned char)(255 * sigmoid(d / SCALE));
+	float band = fmodf(fabsf(d), INTERVAL);
+	if (band < THRESHOLD)
+		return RAYWHITE;
 	return (Color){v, v, v, 255};
 }
 
