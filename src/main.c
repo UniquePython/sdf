@@ -4,6 +4,7 @@
 
 #define WIDTH 900
 #define HEIGHT 600
+#define SCALE 10
 
 // --- SDF ---
 float sdf_circle(float x, float y, float cx, float cy, float r)
@@ -13,12 +14,18 @@ float sdf_circle(float x, float y, float cx, float cy, float r)
 	return sqrtf(dx * dx + dy * dy) - r;
 }
 
+float sigmoid(float t)
+{
+	return 1.0f / (1.0f + expf(-t));
+}
+
 // --- Color mapping ---
 // Takes an SDF value, returns a Color
 // For now: black if outside, white if inside
 Color distance_to_color(float d)
 {
-	return d > 0 ? BLACK : RAYWHITE;
+	unsigned char v = (unsigned char)(255 * sigmoid(d / SCALE));
+	return (Color){v, v, v, 255};
 }
 
 int main(void)
