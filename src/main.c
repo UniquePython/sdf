@@ -4,7 +4,7 @@
 
 #define WIDTH 900
 #define HEIGHT 600
-#define SCALE 10
+#define SCALE 150
 
 // --- SDF ---
 float sdf_circle(float x, float y, float cx, float cy, float r)
